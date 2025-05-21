@@ -1,1 +1,1 @@
-# deck-rivals
+# Deck-Rivals
