@@ -23,3 +23,4 @@ cmake-build-release-*
 *.dll
 *.exp
 bin/
+lib/
