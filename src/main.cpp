@@ -39,6 +39,19 @@ bool game_init_sdl(Game* game){
         return false;
     }
 
+    SDL_Surface *icon_surf = IMG_Load("../Nvidia.png");
+    if(!icon_surf) {
+        cout << stderr << "Error laoding surface: " << SDL_GetError() << endl;
+        return false;
+    }
+
+    if (!SDL_SetWindowIcon(game->window, icon_surf)){
+        cout << stderr << "Error setting window icon: " << SDL_GetError() << endl;
+        SDL_DestroySurface(icon_surf);
+        return false;
+    }
+    SDL_DestroySurface(icon_surf);
+
     return true;
 }
 
