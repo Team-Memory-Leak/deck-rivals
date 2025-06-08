@@ -39,7 +39,7 @@ bool game_init_sdl(Game* game){
         return false;
     }
 
-    SDL_Surface *icon_surf = IMG_Load("../Nvidia.png");
+    SDL_Surface *icon_surf = IMG_Load("images/Nvidia.png");
     if(!icon_surf) {
         cout << stderr << "Error laoding surface: " << SDL_GetError() << endl;
         return false;
