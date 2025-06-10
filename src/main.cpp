@@ -145,8 +145,13 @@ bool game_new(Game* game){
     }
 
     game->is_running = true;
-    return true; 
+    srand(time(nullptr));
+    return true;
 }
+
+void game_render_color(Game* game) {
+  SDL_SetRenderDrawColor(game->renderer, rand() % 256, rand() % 256, rand() % 256, 255);
+};
 
 int main() {
     bool exit_status = EXIT_FAILURE;

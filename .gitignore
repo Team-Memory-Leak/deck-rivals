@@ -24,3 +24,7 @@ cmake-build-release-*
 *.exp
 bin/
 lib/
+assets/characters/*
+!assets/characters/dummyFile.temp
+assets/tilesets/*
+!assets/tilesets/dummyFile.temp
