@@ -1,13 +1,21 @@
 #include "../header/GameEngine2D.hpp"
+#include <iostream>
 
 int main() {
-    GameEngine2D* game = new GameEngine2D("Ryan Hoang", 800, 800, SDL_INIT_VIDEO);
-    game->init();
-    SDL_Delay(500);
-    game->changeBackground(200,50,100,255);
-    game->update();
-    SDL_Delay(1000);
-    delete game; 
-    game = nullptr; 
+    GameEngine2D* game = new GameEngine2D("main", 1000, 800, SDL_INIT_VIDEO);
+    
+    if(!game->init()){
+        delete game; 
+        game = nullptr; 
+        throw std::runtime_error("Error Initializing SDL");
+    }
+
+    while(game->getRunning()){
+
+        game->update();
+
+    }
+
+
     return 0; 
 }

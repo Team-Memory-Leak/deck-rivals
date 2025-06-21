@@ -32,6 +32,8 @@ bool GameEngine2D::init() {
         return false;
     }
 
+    changeBackground(0,0,0,255);
+
     return true; 
 }
 
@@ -40,21 +42,54 @@ void GameEngine2D::changeBackground(Uint8 R, Uint8 G, Uint8 B, Uint8 a){
 }
 
 void GameEngine2D::update(){
-    SDL_RenderClear(this->renderer);
-    SDL_RenderPresent(this->renderer);
+    handleEvents();
     
+    SDL_RenderClear(this->renderer);
+
+    SDL_RenderPresent(this->renderer);
+}
+
+void GameEngine2D::handleEvents(){
+    
+    SDL_PollEvent(&this->event);
+    switch (this->event.type){
+        case SDL_EVENT_QUIT:
+            this->is_running = false;
+            break;
+
+        case SDL_EVENT_KEY_DOWN:
+            handleKeyboard();
+            break;
+        default:
+            break;
+    }
+
+}
+
+void GameEngine2D::handleKeyboard(){
+    switch (this->event.key.scancode){
+        case SDL_SCANCODE_Q:
+            this->is_running = false;
+            break;
+        default:
+            break;
+    }
 }
 
 void GameEngine2D::load_media() {
-
+    
 }
 
 void GameEngine2D::free() {
+    SDL_DestroyRenderer(this->renderer);
+    this->renderer = nullptr; 
+    
     SDL_DestroyWindow(this->window);
     this->window = nullptr; 
 
-    SDL_DestroyRenderer(this->renderer);
-    this->renderer = nullptr; 
-
+    SDL_QuitSubSystem(SDL_FLAGS);
     SDL_Quit();
 }
+
+bool GameEngine2D::getRunning(){return this->is_running;}
+void GameEngine2D::setRunning(const bool set){this->is_running = set;}

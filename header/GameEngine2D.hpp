@@ -28,5 +28,12 @@ class GameEngine2D : public GameEngine {
         void changeBackground(Uint8 R , Uint8 G, Uint8 B, Uint8 a);
         void changeBackground(const string& FileName);
         void update();
+        void handleEvents();
+
+        bool getRunning();
+        void setRunning(const bool);
+
+    private:
+        void handleKeyboard();
 
 };
