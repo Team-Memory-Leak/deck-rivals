@@ -8,5 +8,5 @@ class TextureManager {
     string defaultPath = "../assets/";
   public:
     TextureManager(string defaultPath = "../assets/");
-    SDL_Texture* getTexture(const string& fileName, SDL_Renderer* renderer);
+    static SDL_Texture* getTexture(const string& fileName, SDL_Renderer* renderer);
 };

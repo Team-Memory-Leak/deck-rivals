@@ -42,11 +42,11 @@ void GameEngine2D::changeBackground(Uint8 R, Uint8 G, Uint8 B, Uint8 a){
 }
 
 void GameEngine2D::update(){
-    handleEvents();
-    
-    SDL_RenderClear(this->renderer);
+  handleEvents();
+  
+  SDL_RenderClear(this->renderer);
 
-    SDL_RenderPresent(this->renderer);
+  SDL_RenderPresent(this->renderer);
 }
 
 void GameEngine2D::handleEvents(){
