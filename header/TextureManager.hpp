@@ -4,9 +4,8 @@
 using std::string;
 
 class TextureManager {
-  private:
-    string defaultPath = "../assets/";
   public:
-    TextureManager(string defaultPath = "../assets/");
+    TextureManager();
+    ~TextureManager() = delete;
     static SDL_Texture* getTexture(const string& fileName, SDL_Renderer* renderer);
 };
