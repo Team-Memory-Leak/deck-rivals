@@ -45,7 +45,6 @@ void GameEngine2D::update(){
   handleEvents();
   
   SDL_RenderClear(this->renderer);
-
   SDL_RenderPresent(this->renderer);
 }
 

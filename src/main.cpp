@@ -23,9 +23,9 @@ int main() {
 
     if (FRAMEDELAY > frameTime) {
       SDL_Delay(FRAMEDELAY - frameTime);
-    }
+    };
 
-  }
+  };
 
 
   return 0;
