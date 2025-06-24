@@ -5,5 +5,7 @@ using std::string;
 
 class TextureManager {
   public:
+    TextureManager();
+    ~TextureManager() = delete;
     static SDL_Texture* getTexture(const string& fileName, SDL_Renderer* renderer);
 };
