@@ -1,7 +1,11 @@
 #include "../header/GameEngine2D.hpp"
 #include "../header/TextureManager.hpp"
+#include "../header/GameObject.hpp"
 
 using namespace std;
+
+GameObject* player;
+
 
 GameEngine2D::GameEngine2D(const string& windowName, int width, int height, Uint64 SDL_Flags) : window(nullptr), renderer(nullptr), background(nullptr), is_running(true), 
     windowTitle(windowName), windowWidth(width), windowHeight(height), SDL_FLAGS(SDL_Flags) {
@@ -35,6 +39,8 @@ bool GameEngine2D::init() {
 
     changeBackground(0,0,0,255);
 
+    player = new GameObject("assets/characters/MainCharacter.png", this->renderer);
+
     return true; 
 }
 
@@ -43,11 +49,17 @@ void GameEngine2D::changeBackground(Uint8 R, Uint8 G, Uint8 B, Uint8 a){
 }
 
 void GameEngine2D::update(){
-    handleEvents();
     
+    player->Update();
+
+}
+
+void GameEngine2D::render(){
+
     SDL_RenderClear(this->renderer);
-    
+    player->Render();
     SDL_RenderPresent(this->renderer);
+
 }
 
 void GameEngine2D::handleEvents(){
