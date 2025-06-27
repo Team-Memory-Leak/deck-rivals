@@ -20,7 +20,7 @@ class GameObject {
     ~GameObject();
     GameObject(GameObject&);
     GameObject &operator=(GameObject&);
-    void Update();
+    void Update(const int& delay);
     void Render();
     unsigned int GetID() const {
       return id;

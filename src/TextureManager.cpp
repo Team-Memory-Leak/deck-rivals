@@ -11,3 +11,7 @@ SDL_Texture* TextureManager::getTexture(const string& fileName, SDL_Renderer* re
 
   return tex;
 };
+
+void TextureManager::Draw(SDL_Texture* tex, SDL_FRect src, SDL_FRect dest, SDL_Renderer* renderer){
+  SDL_RenderTexture(renderer, tex, &src, &dest);
+}

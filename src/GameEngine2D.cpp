@@ -5,6 +5,7 @@
 using namespace std;
 
 GameObject* player;
+GameObject* rival;
 
 
 GameEngine2D::GameEngine2D(const string& windowName, int width, int height, Uint64 SDL_Flags) : window(nullptr), renderer(nullptr), background(nullptr), is_running(true), 
@@ -40,6 +41,7 @@ bool GameEngine2D::init() {
     changeBackground(0,0,0,255);
 
     player = new GameObject("assets/characters/MainCharacter.png", this->renderer);
+    rival = new GameObject("assets/characters/Rival.png", this->renderer);
 
     return true; 
 }
@@ -50,7 +52,8 @@ void GameEngine2D::changeBackground(Uint8 R, Uint8 G, Uint8 B, Uint8 a){
 
 void GameEngine2D::update(){
     
-    player->Update();
+    player->Update(3);
+    rival->Update(4);
 
 }
 
@@ -58,6 +61,7 @@ void GameEngine2D::render(){
 
     SDL_RenderClear(this->renderer);
     player->Render();
+    rival->Render();
     SDL_RenderPresent(this->renderer);
 
 }
@@ -93,6 +97,12 @@ void GameEngine2D::load_media() {
 }
 
 void GameEngine2D::free() {
+    delete player;
+    delete rival;
+
+    player = nullptr;
+    rival = nullptr; 
+
     SDL_DestroyRenderer(this->renderer);
     this->renderer = nullptr; 
     

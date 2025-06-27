@@ -10,12 +10,12 @@ GameObject::GameObject(const string& textureSheet, SDL_Renderer* ren) {
   destRect.x = 0;
   destRect.y = 0;
   destRect.h = 64;
-  destRect.w = 32; 
+  destRect.w = 32;
 };
 
-void GameObject::Update() {
-  destRect.x += 4;
-  destRect.y += 4;
+void GameObject::Update(const int& speed) {
+  destRect.x += speed;
+  destRect.y += speed;
   srcRect.x = ((static_cast<int>(srcRect.x) + 32) % 160);
 };
 
