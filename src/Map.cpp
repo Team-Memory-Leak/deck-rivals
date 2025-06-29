@@ -98,14 +98,4 @@ Entity init_map(SDL_Renderer* renderer){
             current_texture->next = nullptr; 
         }
     }
-    
-    // Entity map_e = {
-        
-    // };
-}
-
-
-
-Map::Map(){
-
 }
