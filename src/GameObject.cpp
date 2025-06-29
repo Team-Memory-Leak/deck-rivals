@@ -13,6 +13,11 @@ GameObject::GameObject(const string& textureSheet, SDL_Renderer* ren) {
   destRect.w = 32;
 };
 
+GameObject::~GameObject() {
+  delete objTexture;
+  objTexture = nullptr;
+};
+
 void GameObject::Update(const int& speed) {
   destRect.x += speed;
   destRect.y += speed;

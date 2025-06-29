@@ -18,8 +18,8 @@ class GameObject {
   public:
     GameObject(const string& textureSheet, SDL_Renderer* renderer);
     ~GameObject();
-    GameObject(GameObject&);
-    GameObject &operator=(GameObject&);
+    GameObject(GameObject&) = delete;
+    GameObject &operator=(GameObject&) = delete;
     void Update(const int& delay);
     void Render();
     unsigned int GetID() const {

@@ -13,7 +13,7 @@ GameEngine2D::GameEngine2D(const string& windowName, int width, int height, Uint
 }
 
 GameEngine2D::~GameEngine2D() {
-    free();
+  GameEngine2D::free();
 }
 
 bool GameEngine2D::init() {

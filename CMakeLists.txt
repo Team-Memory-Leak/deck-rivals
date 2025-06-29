@@ -13,7 +13,11 @@ add_subdirectory(vendored/SDL EXCLUDE_FROM_ALL)
 add_subdirectory(vendored/SDL_image EXCLUDE_FROM_ALL)
 
 # Create your game executable target as usual
-add_executable(deckrivals WIN32 src/main.cpp src/GameEngine2D.cpp src/TextureManager.cpp src/GameObject.cpp)
+add_executable(deckrivals WIN32 src/main.cpp
+  src/GameEngine2D.cpp
+  src/TextureManager.cpp
+  src/GameObject.cpp
+)
 
 # Link to the actual SDL3 library.
 target_link_libraries(deckrivals PRIVATE SDL3::SDL3 SDL3_image::SDL3_image)
