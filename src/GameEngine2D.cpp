@@ -68,18 +68,18 @@ void GameEngine2D::render(){
 
 void GameEngine2D::handleEvents(){
     
-    SDL_PollEvent(&this->event);
+  while (SDL_PollEvent(&this->event)) {
     switch (this->event.type){
-        case SDL_EVENT_QUIT:
-            this->is_running = false;
-            break;
-        case SDL_EVENT_KEY_DOWN:
-            handleKeyboard();
-            break;
-        default:
-            break;
+      case SDL_EVENT_QUIT:
+        this->is_running = false;
+        break;
+      case SDL_EVENT_KEY_DOWN:
+        handleKeyboard();
+        break;
+      default:
+        break;
     }
-
+  };
 }
 
 void GameEngine2D::handleKeyboard(){
