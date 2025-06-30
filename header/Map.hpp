@@ -12,4 +12,4 @@ struct Texture{
     Texture* next;
 };
 
-Entity init_map(SDL_Renderer* renderer);
+Entity* init_map(SDL_Renderer* renderer, Manager& manage);

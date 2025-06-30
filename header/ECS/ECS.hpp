@@ -59,8 +59,8 @@ inline ComponentID getComponentID() {// https://youtu.be/XsvI8Sng6dk?si=8Du7R-vX
 };
 
 template <typename T> inline ComponentID getComponentID() noexcept {
-  static Component typeID = getComponentID();
-  return typeID();
+  static ComponentID typeID = getComponentID();
+  return typeID;
 };
 
 
@@ -70,10 +70,11 @@ using ComponentArray = std::array<Component*, maxComponents>;
 class Component {
   public:
     Entity* entity;
-    virtual void init();
-    virtual void update();
-    virtual void draw();
-    virtual ~Component();
+    virtual void init(){};
+    virtual void update(){};
+    virtual void draw(){};
+    Component(){};
+    virtual ~Component(){};
 };
 
 class Entity {
@@ -84,6 +85,10 @@ class Entity {
     ComponentArray componentArray;
     ComponentBitSet componentBitSet;
   public:
+    Entity(){};
+    ~Entity(){};
+    Entity(const Entity&) = delete;
+    Entity& operator=(const Entity&) = delete;
     void update() {
       for (auto& comp : components) {
         comp->update();
@@ -112,15 +117,15 @@ class Entity {
       std::unique_ptr<Component> uPtr{ c };
       components.emplace_back(std::move(uPtr));
 
-      componentArray[getComponentTypeID<T>()] = c;
-      componentBitSet[getComponentTypeID<T>()] = true;
+      componentArray[getComponentID<T>()] = c;
+      componentBitSet[getComponentID<T>()] = true;
 
       c->init();
-      return c*;
+      return *c;
     };
 
     template <typename T> T& getComponent() const {
-      auto ptr(componentArray[getComponentTypeID<T>()]);
+      auto ptr(componentArray[getComponentID<T>()]);
       return *static_cast<T*>(ptr);
     };
 };
@@ -129,6 +134,10 @@ class Manager {
   private:
     std::vector<std::unique_ptr<Entity>> entities;
   public:
+    Manager(){};
+    ~Manager(){};
+    Manager(const Manager&) = delete;
+    Manager& operator=(const Manager&) = delete;
     void update() {
       for (auto& e : entities) {
         e->update();

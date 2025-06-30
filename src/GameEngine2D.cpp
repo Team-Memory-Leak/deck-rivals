@@ -1,12 +1,13 @@
 #include "../header/GameEngine2D.hpp"
 #include "../header/TextureManager.hpp"
 #include "../header/GameObject.hpp"
+#include "../header/Map.hpp"
 
 using namespace std;
 
 GameObject* player;
 GameObject* rival;
-
+Manager mainManager;
 
 GameEngine2D::GameEngine2D(const string& windowName, int width, int height, Uint64 SDL_Flags) : window(nullptr), renderer(nullptr), background(nullptr), is_running(true), 
     windowTitle(windowName), windowWidth(width), windowHeight(height), SDL_FLAGS(SDL_Flags) {
@@ -42,6 +43,7 @@ bool GameEngine2D::init() {
 
     player = new GameObject("assets/characters/MainCharacter.png", this->renderer);
     rival = new GameObject("assets/characters/Rival.png", this->renderer);
+    Entity* ourMap = init_map(this->renderer, mainManager);
 
     return true; 
 }
@@ -62,6 +64,7 @@ void GameEngine2D::render(){
     SDL_RenderClear(this->renderer);
     player->Render();
     rival->Render();
+    
     SDL_RenderPresent(this->renderer);
 
 }
