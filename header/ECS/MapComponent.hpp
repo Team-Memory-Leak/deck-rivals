@@ -16,6 +16,7 @@ class MapComponent : public Component {
     void update() override {
     };
     void draw() override {
+      // /*
       cute_tiled_layer_t* temp_layer = layer; 
 
       while(temp_layer){
@@ -47,17 +48,17 @@ class MapComponent : public Component {
                   int tileset_columns = texture_to_use->tileset_width / map->tilewidth;
 
                   SDL_FRect src = { 
-                      static_cast<float>((tile_id - texture_to_use->firstgid) % tileset_columns * map->tilewidth),
-                      static_cast<float>((tile_id - texture_to_use->firstgid) / tileset_columns * map->tileheight),
-                      static_cast<float>(map->tilewidth),
-                      static_cast<float>(map->tileheight)
+                      1.0 * ((tile_id - texture_to_use->firstgid) %  tileset_columns * map->tilewidth),
+                      1.0 * ((tile_id - texture_to_use->firstgid) / tileset_columns * map->tileheight),
+                      1.0 * map->tilewidth,
+                      1.0 * map->tileheight
                   };
 
                   SDL_FRect dst = {
-                      static_cast<float>(j * map->tilewidth),
-                      static_cast<float>(j * map->tileheight),
-                      static_cast<float>(map->tilewidth),
-                      static_cast<float>(map->tileheight)
+                      1.0 * j * map->tilewidth,
+                      1.0 * j * map->tileheight,
+                      1.0 * map->tilewidth,
+                      1.0 * map->tileheight
                   };
 
                   SDL_RenderTexture(ren, texture_to_use->texture, &src, &dst);
@@ -66,6 +67,7 @@ class MapComponent : public Component {
 
           temp_layer = temp_layer->next; 
       };
+      // */
     };
     void giveProperties(SDL_Renderer* mainRenderer, cute_tiled_map_t* mapdata, cute_tiled_layer_t* layerdata, cute_tiled_tileset_t* tilesetdata, Texture* texturedata) {
       this->ren = mainRenderer;

@@ -8,6 +8,7 @@ using namespace std;
 GameObject* player;
 GameObject* rival;
 Manager mainManager;
+Entity* ourMap;
 
 GameEngine2D::GameEngine2D(const string& windowName, int width, int height, Uint64 SDL_Flags) : window(nullptr), renderer(nullptr), background(nullptr), is_running(true), 
     windowTitle(windowName), windowWidth(width), windowHeight(height), SDL_FLAGS(SDL_Flags) {
@@ -43,7 +44,7 @@ bool GameEngine2D::init() {
 
     player = new GameObject("assets/characters/MainCharacter.png", this->renderer);
     rival = new GameObject("assets/characters/Rival.png", this->renderer);
-    Entity* ourMap = init_map(this->renderer, mainManager);
+    ourMap = init_map(this->renderer, mainManager);
 
     return true; 
 }
@@ -54,17 +55,17 @@ void GameEngine2D::changeBackground(Uint8 R, Uint8 G, Uint8 B, Uint8 a){
 
 void GameEngine2D::update(){
     
-    player->Update(3);
-    rival->Update(4);
+    // player->Update(3);
+    // rival->Update(4);
 
 }
 
 void GameEngine2D::render(){
 
     SDL_RenderClear(this->renderer);
-    player->Render();
-    rival->Render();
-    
+    // player->Render();
+    // rival->Render();
+    ourMap->draw();
     SDL_RenderPresent(this->renderer);
 
 }

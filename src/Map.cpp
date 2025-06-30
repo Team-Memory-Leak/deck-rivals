@@ -62,7 +62,7 @@ static void render(SDL_Renderer* renderer){
 }
 */
 Entity* init_map(SDL_Renderer* renderer, Manager& manage){
-  const string mapPath = "./assets/maps/map.json";
+  const string mapPath = "assets/maps/map.json";
   map = cute_tiled_load_map_from_file(mapPath.c_str(), nullptr);
 
   if(!map){

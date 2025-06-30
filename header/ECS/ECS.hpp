@@ -93,12 +93,12 @@ class Entity {
       for (auto& comp : components) {
         comp->update();
       };
-      for (auto& comp : components) {
-        comp->draw();
-      };
+
     };
     void draw() {
-      
+      for (auto& comp : components) {
+        comp->draw();
+      };      
     };
     bool isActive() const {
       return active;
