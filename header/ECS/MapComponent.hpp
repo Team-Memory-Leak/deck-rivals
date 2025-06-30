@@ -48,17 +48,17 @@ class MapComponent : public Component {
                   int tileset_columns = texture_to_use->tileset_width / map->tilewidth;
 
                   SDL_FRect src = { 
-                      1.0 * ((tile_id - texture_to_use->firstgid) %  tileset_columns * map->tilewidth),
-                      1.0 * ((tile_id - texture_to_use->firstgid) / tileset_columns * map->tileheight),
-                      1.0 * map->tilewidth,
-                      1.0 * map->tileheight
+                      static_cast<float>(((tile_id - texture_to_use->firstgid) %  tileset_columns * map->tilewidth)),
+                      static_cast<float>(((tile_id - texture_to_use->firstgid) / tileset_columns * map->tileheight)),
+                      static_cast<float>(map->tilewidth),
+                      static_cast<float>(map->tileheight)
                   };
 
                   SDL_FRect dst = {
-                      1.0 * j * map->tilewidth,
-                      1.0 * j * map->tileheight,
-                      1.0 * map->tilewidth,
-                      1.0 * map->tileheight
+                      static_cast<float>(j * map->tilewidth),
+                      static_cast<float>(i * map->tileheight),
+                      static_cast<float>(map->tilewidth),
+                      static_cast<float>(map->tileheight)
                   };
 
                   SDL_RenderTexture(ren, texture_to_use->texture, &src, &dst);
