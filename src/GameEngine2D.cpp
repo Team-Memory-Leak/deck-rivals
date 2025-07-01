@@ -2,6 +2,7 @@
 #include "../header/TextureManager.hpp"
 #include "../header/GameObject.hpp"
 #include "../header/Map.hpp"
+#include "../header/ECS/Components.hpp"
 
 using namespace std;
 
@@ -9,6 +10,7 @@ GameObject* player;
 GameObject* rival;
 Manager mainManager;
 Entity* ourMap;
+Entity* newPlayer;
 
 GameEngine2D::GameEngine2D(const string& windowName, int width, int height, Uint64 SDL_Flags) : window(nullptr), renderer(nullptr), background(nullptr), is_running(true), 
     windowTitle(windowName), windowWidth(width), windowHeight(height), SDL_FLAGS(SDL_Flags) {
@@ -42,9 +44,14 @@ bool GameEngine2D::init() {
 
     changeBackground(0,0,0,255);
 
+    ourMap = init_map(this->renderer, mainManager);
+    newPlayer = &mainManager.addEntity();
+    newPlayer->addComponent<TransformComponent>();
+    newPlayer->addComponent<SpriteComponent>();
+    newPlayer->getComponent<SpriteComponent>().addProperty(this->renderer, "assets/characters/FemaleMainCharacter.png");
+
     player = new GameObject("assets/characters/MainCharacter.png", this->renderer);
     rival = new GameObject("assets/characters/Rival.png", this->renderer);
-    ourMap = init_map(this->renderer, mainManager);
 
     return true; 
 }
@@ -55,17 +62,20 @@ void GameEngine2D::changeBackground(Uint8 R, Uint8 G, Uint8 B, Uint8 a){
 
 void GameEngine2D::update(){
     
-    // player->Update(3);
-    // rival->Update(4);
+    player->Update(3);
+    rival->Update(4);
+    mainManager.update();
 
 }
 
 void GameEngine2D::render(){
 
     SDL_RenderClear(this->renderer);
-    // player->Render();
-    // rival->Render();
-    ourMap->draw();
+    
+    mainManager.draw();
+    player->Render();
+    rival->Render();
+    
     SDL_RenderPresent(this->renderer);
 
 }

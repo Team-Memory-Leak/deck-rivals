@@ -5,10 +5,12 @@ using std::string;
 
 class SpriteComponent : public Component {
   private:
-    PositionComponent* position;
+    TransformComponent* transform;
+    SDL_Renderer* renderer; 
     SDL_Texture* texture;
     SDL_FRect srcRect;
     SDL_FRect destRect;
+
   public:
     SpriteComponent() = default;
     SpriteComponent(const string& path) {
@@ -16,17 +18,21 @@ class SpriteComponent : public Component {
     };
     void init() override {
 
-      position = &entity->getComponent<PositionComponent>();
+      transform = &entity->getComponent<TransformComponent>();
 
       srcRect.x = srcRect.y = 0;
-      srcRect.w = srcRect.h = 32;
-      destRect.w = destRect.h = 64;
+      srcRect.w = destRect.w = 32;
+      srcRect.h = destRect.h = 64;
     };
     void update() override {
-      destRect.x = position->x();
-      destRect.y = position->y();
+      destRect.x = (int)transform->position.getX();
+      destRect.y = (int)transform->position.getY();
     };
     void draw() override {
-      // TextureManager::getTexture("characters/", );
+      SDL_RenderTexture(renderer, texture, &srcRect, &destRect);
+    };
+    void addProperty(SDL_Renderer* newRenderer, const string& filePath) {
+      this->renderer = newRenderer;
+      this->texture = TextureManager::getTexture(filePath, renderer);
     };
 };

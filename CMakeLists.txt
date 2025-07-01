@@ -18,6 +18,7 @@ add_executable(deckrivals WIN32 src/main.cpp
   src/TextureManager.cpp
   src/GameObject.cpp
   src/Map.cpp
+  src/Vector2D.cpp
 )
 
 # Link to the actual SDL3 library.

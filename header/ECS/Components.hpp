@@ -1,7 +1,7 @@
 #pragma once
 #include "ECS.hpp"
 #include "../TextureManager.hpp"
-#include "PositionComponent.hpp"
+#include "TransformComponent.hpp"
 #include "SpriteComponents.hpp"
 #include "MapComponent.hpp"
 
