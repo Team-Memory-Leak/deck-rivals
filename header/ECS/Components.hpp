@@ -4,4 +4,4 @@
 #include "TransformComponent.hpp"
 #include "SpriteComponents.hpp"
 #include "MapComponent.hpp"
-
+#include "KeyboardControllerComponent.hpp"

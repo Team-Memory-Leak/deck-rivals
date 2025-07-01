@@ -31,9 +31,9 @@ class GameEngine2D : public GameEngine {
         void render();
         void handleEvents();
 
-        bool getRunning();
+        bool getRunning() const;
         void setRunning(const bool);
-
+        SDL_Event* getEvent();
     private:
         void handleKeyboard();
 
