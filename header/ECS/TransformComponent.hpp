@@ -29,6 +29,21 @@ class TransformComponent : public Component {
       velocity.setY(0);
     }
     void update() override {
-      position += (velocity * speed);
-    }
+      Vector2D holder;
+      holder.setX((velocity * speed).getX());
+      holder.setY((velocity * speed).getY());
+
+      if (holder.getX() <= 3 && holder.getY() <= 3) {
+        if (holder.getX() >= -3 && holder.getY() >= -3) {}
+        else {
+          holder.setX(0);
+          holder.setY(0);
+        };
+      }
+      else {
+        holder.setX(0);
+        holder.setY(0);
+      };
+      position += holder;
+    };
 };

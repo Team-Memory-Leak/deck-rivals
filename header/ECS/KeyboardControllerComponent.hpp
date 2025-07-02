@@ -6,111 +6,122 @@ class KeyboardControllerComponent : public Component {
   private:
     SDL_Event* event;
     TransformComponent* transform;
-    bool run = true;
+    const float MOVEMENT = 0.7071;
+    bool run;
+    bool w;
+    bool a;
+    bool s;
+    bool d;
   public:
     void init() override {
       transform = &entity->getComponent<TransformComponent>();
+      run = true;
+      w = a = s = d = false;
     };
 
     void update() override {
       if (event->type == SDL_EVENT_QUIT) {
         run = false;
       };
+      if (event->type == SDL_EVENT_KEY_DOWN || SDL_EVENT_KEY_UP) {
+        if (event->type == SDL_EVENT_KEY_DOWN) {
+          SDL_Scancode evental = event->key.scancode;
 
-      if (event->type == SDL_EVENT_KEY_DOWN) {
-        SDL_Scancode evental = event->key.scancode;
+          switch (evental) {
+            case SDL_SCANCODE_W:
+              w = true;
+              break;
+            case SDL_SCANCODE_A:
+              a = true;
+              break;
+            case SDL_SCANCODE_D:
+              d = true;
+              break;
+            case SDL_SCANCODE_S:
+              s = true;
+              break;
+            default:
+              break;
+          };
 
-        // Handles ALl Keys Down
-        if (evental == (SDL_SCANCODE_W && (evental == SDL_SCANCODE_A) && (evental == SDL_SCANCODE_S) &&  (evental == SDL_SCANCODE_D))) {
+          if (evental == SDL_SCANCODE_ESCAPE || evental == SDL_SCANCODE_Q) {
+            run = false;
+          };
+        };
+
+        if (event->type == SDL_EVENT_KEY_UP) {
+          switch (event->key.scancode) {
+            case SDL_SCANCODE_W:
+              w = false;
+              break;
+            case SDL_SCANCODE_A:
+              a = false;
+              break;
+            case SDL_SCANCODE_D:
+              d = false;
+              break;
+            case SDL_SCANCODE_S:
+              s = false;
+              break;
+            default:
+              break;
+          };
+        };
+
+        // Handle Inputs with Known Keys
+        if (w && a && d && s) {
           transform->velocity.setX(0);
           transform->velocity.setY(0);
+        } 
+        else if (w && s && d) {
+          transform->velocity.setY(0);
+          transform->velocity.setX(1);
         }
-        else {
-          // Handles 3 Inputs Down
-          if (evental == SDL_SCANCODE_W) {
-            if (evental == SDL_SCANCODE_A && evental == SDL_SCANCODE_D) {
-              transform->velocity.setX(0);
-              transform->velocity.setY(-1);
-            };
-            if (evental == SDL_SCANCODE_S && evental == SDL_SCANCODE_A) {
-              transform->velocity.setX(-1);
-              transform->velocity.setY(0);
-            };
-            if (evental == SDL_SCANCODE_S && evental == SDL_SCANCODE_D) {
-              transform->velocity.setX(1);
-              transform->velocity.setY(0);
-            };
-          }
-          else if (evental == SDL_SCANCODE_D) {
-            transform->velocity.setX(0);
-            transform->velocity.setY(1);
-          };
-
-          // Handles 2 Pushes
-          const float MOVEMENT = sqrt(2);
-
-          if (evental == SDL_SCANCODE_W && evental == SDL_SCANCODE_S) {
-            transform->velocity.setY(0);
-          };
-          if (evental == SDL_SCANCODE_W && evental == SDL_SCANCODE_D) {
-            transform->velocity.setX(MOVEMENT);
-            transform->velocity.setY(-MOVEMENT);
-          };
-          if (evental == SDL_SCANCODE_W && evental == SDL_SCANCODE_A) {
-            transform->velocity.setX(-MOVEMENT);
-            transform->velocity.setY(-MOVEMENT);
-          };
-          if (evental == SDL_SCANCODE_S && evental == SDL_SCANCODE_A) {
-            transform->velocity.setX(-MOVEMENT);
-            transform->velocity.setY(MOVEMENT);
-          };
-
-          // Handles 1 Pushes
-          if (evental == (SDL_SCANCODE_W && not (evental == SDL_SCANCODE_A) && not (evental == SDL_SCANCODE_S) && not (evental == SDL_SCANCODE_D))) {
-            transform->velocity.setY(-1);
-          };
-          if (evental == (SDL_SCANCODE_A && not (evental == SDL_SCANCODE_W) && not (evental == SDL_SCANCODE_S) && not (evental == SDL_SCANCODE_D))) {
-            transform->velocity.setX(-1);
-          };
-          if (evental == (SDL_SCANCODE_D && not (evental == SDL_SCANCODE_W) && not (evental == SDL_SCANCODE_A) && not (evental == SDL_SCANCODE_S))) {
-            transform->velocity.setY(1);
-          };
-          if (evental == (SDL_SCANCODE_S && not (evental == SDL_SCANCODE_W) && not (evental == SDL_SCANCODE_A) && not (evental == SDL_SCANCODE_D))) {
-            transform->velocity.setX(1);
-          };
-
-          // Handles Diagonal Inputs
-          if (evental == SDL_SCANCODE_W) {
-            if (evental == SDL_SCANCODE_A) {
-
-            }
-            else {
-              transform->velocity.setX(0);
-            };
-          };
-        };
-
-        if (evental == SDL_SCANCODE_ESCAPE || evental == SDL_SCANCODE_Q) {
-          run = false;
-        };
-      };
-
-      if (event->type == SDL_EVENT_KEY_UP) {
-        switch (event->key.scancode) {
-          case SDL_SCANCODE_W:
-            transform->velocity.setY(0);
-            break;
-          case SDL_SCANCODE_A:
-            transform->velocity.setX(0);
-            break;
-          case SDL_SCANCODE_D:
-            transform->velocity.setX(0);
-            break;
-          case SDL_SCANCODE_S:
-            transform->velocity.setY(0);
-            break;
-          default:
-            break;
+        else if (w && s && a) {
+          transform->velocity.setY(0);
+          transform->velocity.setX(-1);
+        }
+        else if (w && a && d) {
+          transform->velocity.setY(-1);
+          transform->velocity.setX(0);
+        }
+        else if (a && s && d) {
+          transform->velocity.setY(1);
+          transform->velocity.setX(0);
+        }
+        else if (w && s) {
+          transform->velocity.setY(0);
+        }
+        else if (a && d) {
+          transform->velocity.setX(0);
+        }
+        else if (w && d) {
+          transform->velocity.setX(MOVEMENT);
+          transform->velocity.setY(-MOVEMENT);
+        }
+        else if (w && a) {
+          transform->velocity.setX(-MOVEMENT);
+          transform->velocity.setY(-MOVEMENT);
+        }
+        else if (s && d) {
+          transform->velocity.setY(MOVEMENT);
+          transform->velocity.setX(MOVEMENT);
+        }
+        else if (s && a) {
+          transform->velocity.setY(MOVEMENT);
+          transform->velocity.setX(-MOVEMENT);
+        }
+        else if (w) {
+          transform->velocity.setY(-1);
+        }
+        else if (s) {
+          transform->velocity.setX(1);
+        }
+        else if (a) {
+          transform->velocity.setX(-1);
+        }
+        else if (d) {
+          transform->velocity.setX(1);
         };
       };
     };
