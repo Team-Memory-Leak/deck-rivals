@@ -11,7 +11,7 @@ class TransformComponent : public Component {
     Vector2D position; 
     Vector2D velocity;
 
-    int speed = 3; 
+    float speed = 3; 
 
     TransformComponent() {
       position.setX(0.0f);
@@ -29,21 +29,10 @@ class TransformComponent : public Component {
       velocity.setY(0);
     }
     void update() override {
-      Vector2D holder;
-      holder.setX((velocity * speed).getX());
-      holder.setY((velocity * speed).getY());
+      Vector2D holder = velocity * speed;
 
-      if (holder.getX() <= 3 && holder.getY() <= 3) {
-        if (holder.getX() >= -3 && holder.getY() >= -3) {}
-        else {
-          holder.setX(0);
-          holder.setY(0);
-        };
-      }
-      else {
-        holder.setX(0);
-        holder.setY(0);
-      };
+      std::cout << holder << "\n";
+
       position += holder;
     };
 };

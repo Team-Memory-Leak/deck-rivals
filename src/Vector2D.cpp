@@ -77,8 +77,6 @@ std::ostream& operator<<(std::ostream& stream, const Vector2D& vec){
     return stream;
 }
 
-Vector2D& Vector2D::operator*(int speed){
-    this->setX(this->getX() * speed);
-    this->setY(this->getY() * speed);
-    return *this; 
+Vector2D Vector2D::operator*(float scalar){
+  return Vector2D(this->x * scalar, this->y * scalar); 
 }

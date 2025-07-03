@@ -28,7 +28,7 @@ class Vector2D{
 		Vector2D& operator*=(const Vector2D& vec);
 		Vector2D& operator/=(const Vector2D& vec);
 
-		Vector2D& operator*(int speed);
+		Vector2D operator*(float scalar);
 
 		friend std::ostream& operator<<(std::ostream& stream, const Vector2D& vec);
 
