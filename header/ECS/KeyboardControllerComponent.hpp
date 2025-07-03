@@ -23,7 +23,7 @@ class KeyboardControllerComponent : public Component {
       if (event->type == SDL_EVENT_QUIT) {
         run = false;
       };
-      if (event->type == SDL_EVENT_KEY_DOWN || SDL_EVENT_KEY_UP) {
+      if (event->type == SDL_EVENT_KEY_DOWN || event->type == SDL_EVENT_KEY_UP) {
         if (event->type == SDL_EVENT_KEY_DOWN) {
           SDL_Scancode evental = event->key.scancode;
 
