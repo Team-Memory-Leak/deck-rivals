@@ -20,26 +20,6 @@ class KeyboardControllerComponent : public Component {
     };
 
     void update() override {
-      if (event->type == SDL_EVENT_MOUSE_MOTION
-        ||
-        event->type == SDL_EVENT_MOUSE_ADDED
-        ||
-        event->type == SDL_EVENT_MOUSE_REMOVED
-        ||
-        event->type == SDL_EVENT_MOUSE_BUTTON_DOWN
-        ||
-        event->type == SDL_EVENT_MOUSE_BUTTON_UP
-        ||
-        event->type == SDL_EVENT_MOUSE_BUTTON_DOWN
-        ||
-        event->type == SDL_EVENT_MOUSE_WHEEL
-        ||
-        event->type == SDL_EVENT_WINDOW_MOUSE_ENTER
-        ||
-        event->type == SDL_EVENT_WINDOW_MOUSE_LEAVE
-      ) {
-        return;
-      };
       if (event->type == SDL_EVENT_QUIT) {
         run = false;
       };
@@ -128,20 +108,24 @@ class KeyboardControllerComponent : public Component {
       }
       else if (w) {
         transform->velocity.setY(-1);
+        transform->velocity.setX(0);
       }
       else if (s) {
         transform->velocity.setY(1);
+        transform->velocity.setX(0);
       }
       else if (a) {
         transform->velocity.setX(-1);
+        transform->velocity.setY(0);
       }
       else if (d) {
         transform->velocity.setX(1);
+        transform->velocity.setY(0);
       }
       else if (!w && !a && !s && !d) {
         transform->velocity.setX(0);
         transform->velocity.setY(0);
-      }
+      };
     };
     bool escape() const {
       return this->run;

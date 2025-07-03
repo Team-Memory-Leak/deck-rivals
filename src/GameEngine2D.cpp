@@ -82,8 +82,12 @@ void GameEngine2D::render(){
 
 void GameEngine2D::handleEvents(){
   while (SDL_PollEvent(&event)) {
-    mainManager.update();
-    is_running = newPlayer->getComponent<KeyboardControllerComponent>().escape();
+    if (event.type == SDL_EVENT_MOUSE_MOTION || event.type == SDL_EVENT_MOUSE_ADDED || event.type == SDL_EVENT_MOUSE_REMOVED || event.type == SDL_EVENT_MOUSE_BUTTON_DOWN || event.type == SDL_EVENT_MOUSE_BUTTON_UP || event.type == SDL_EVENT_MOUSE_BUTTON_DOWN || event.type == SDL_EVENT_MOUSE_WHEEL || event.type == SDL_EVENT_WINDOW_MOUSE_ENTER || event.type == SDL_EVENT_WINDOW_MOUSE_LEAVE) {
+    }
+    else {
+      mainManager.update();
+      is_running = newPlayer->getComponent<KeyboardControllerComponent>().escape();
+    };
   };
 };
 
