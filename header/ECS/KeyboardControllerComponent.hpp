@@ -63,7 +63,6 @@ class KeyboardControllerComponent : public Component {
         };
       };
 
-      // Handle Inputs with Known Keys
       if (w && a && d && s) {
         transform->velocity.setX(0);
         transform->velocity.setY(0);
