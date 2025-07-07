@@ -13,7 +13,7 @@ Manager mainManager;
 Entity* ourMap;
 Entity* newPlayer;
 
-auto& wall(mainManager.addEntity());
+Entity* wall; 
 
 GameEngine2D::GameEngine2D(const string& windowName, int width, int height, Uint64 SDL_Flags) : window(nullptr), renderer(nullptr), background(nullptr), is_running(true), 
     windowTitle(windowName), windowWidth(width), windowHeight(height), SDL_FLAGS(SDL_Flags) {
@@ -60,11 +60,12 @@ bool GameEngine2D::init() {
   player = new GameObject("assets/characters/MainCharacter.png", this->renderer);
   rival = new GameObject("assets/characters/Rival.png", this->renderer);
 
-  wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
-  wall.addComponent<SpriteComponent>();
-  wall.addComponent<ColliderComponent>();
-  wall.getComponent<ColliderComponent>().tag = "wall";
-  wall.getComponent<SpriteComponent>().addProperty(this->renderer, "assets/characters/MainCharacter.png");
+  wall = &mainManager.addEntity();
+  wall->addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
+  wall->addComponent<SpriteComponent>();
+  wall->addComponent<ColliderComponent>();
+  wall->getComponent<ColliderComponent>().tag = "wall";
+  wall->getComponent<SpriteComponent>().addProperty(this->renderer, "assets/characters/MainCharacter.png");
 
   return true;
 };
@@ -77,6 +78,11 @@ void GameEngine2D::update(){
   mainManager.refresh();
   player->Update(3);
   rival->Update(4);
+  if(Collision::AABB(newPlayer->getComponent<ColliderComponent>().collider, 
+                      wall->getComponent<ColliderComponent>().collider)) {
+                        newPlayer->getComponent<TransformComponent>().scale = 1;
+                        std::cout << "Wall Hit" << "\n" ; 
+                      }
 };
 
 void GameEngine2D::render(){
