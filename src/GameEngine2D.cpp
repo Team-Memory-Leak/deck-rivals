@@ -50,7 +50,8 @@ bool GameEngine2D::init() {
   ourMap = init_map(this->renderer, mainManager);
   newPlayer = &mainManager.addEntity();
   newPlayer->addComponent<TransformComponent>();
-  newPlayer->addComponent<ColliderComponent>("player");
+  newPlayer->addComponent<ColliderComponent>();
+  newPlayer->getComponent<ColliderComponent>().tag = "player";
   newPlayer->addComponent<SpriteComponent>();
   newPlayer->getComponent<SpriteComponent>().addProperty(this->renderer, "assets/characters/FemaleMainCharacter.png");
   newPlayer->addComponent<KeyboardControllerComponent>();

@@ -14,11 +14,11 @@ class ColliderComponent : public Component {
     ~ColliderComponent(){};
 
     void init() override {
-      if(!entity->hasComponent<TransformComponent>()) {
+      if (!(entity->hasComponent<TransformComponent>())) {
         entity->addComponent<TransformComponent>();
-      }
+      };
       transform = &entity->getComponent<TransformComponent>();
-    }
+    };
     
     void update() override {
       collider.x = transform->position.getX();

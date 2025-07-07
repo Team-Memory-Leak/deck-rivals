@@ -1,7 +1,7 @@
 #include "../header/Collision.hpp"
 
 bool Collision::AABB(const SDL_Rect& recA, const SDL_Rect& recB){
-  if(
+  if (
       recA.x + recA.w >= recB.x && 
       recB.x + recB.w >= recA.x &&
       recA.y + recA.h >= recB.y && 
