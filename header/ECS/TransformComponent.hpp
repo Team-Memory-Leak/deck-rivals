@@ -11,6 +11,10 @@ class TransformComponent : public Component {
     Vector2D position; 
     Vector2D velocity;
 
+    int height = 32;
+    int width = 32;
+    int scale = 1;
+
     float speed = 3; 
 
     TransformComponent() {
@@ -23,6 +27,13 @@ class TransformComponent : public Component {
     TransformComponent(float x , float y){
       position.setX(x);
       position.setY(y);
+    }
+    TransformComponent(float x , float y, int h, int w, int sc){
+      position.setX(x);
+      position.setY(y);
+      height = h;
+      width = w;
+      scale = sc;
     }
     void init() override {
       velocity.setX(0);

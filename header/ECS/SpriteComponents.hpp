@@ -13,6 +13,9 @@ class SpriteComponent : public Component {
 
   public:
     SpriteComponent() = default;
+    ~SpriteComponent() { 
+      SDL_DestroyTexture(texture);
+    }
     SpriteComponent(const string& path) {
 
     };
@@ -21,8 +24,8 @@ class SpriteComponent : public Component {
       transform = &entity->getComponent<TransformComponent>();
 
       srcRect.x = srcRect.y = 0;
-      srcRect.w = destRect.w = 32;
-      srcRect.h = destRect.h = 64;
+      srcRect.w = transform->width;
+      srcRect.h = transform->height; 
     };
     void update() override {
       destRect.x = (int)transform->position.getX();
@@ -30,6 +33,9 @@ class SpriteComponent : public Component {
       
       float xVel = transform->velocity.getX();
       float yVel = transform->velocity.getY();
+
+      destRect.w = transform->width * transform->scale; 
+      destRect.h = transform->height * transform->scale;       
 
       if(yVel > 0.5f) {
         srcRect.x = (float)(((int)srcRect.x + 32) % 160) + 576;

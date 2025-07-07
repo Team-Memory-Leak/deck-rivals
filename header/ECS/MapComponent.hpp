@@ -11,6 +11,11 @@ class MapComponent : public Component {
     cute_tiled_tileset_t* tileset;
     Texture* texture;
   public:
+    MapComponent(){};
+    ~MapComponent(){
+      delete texture;
+      texture = nullptr; 
+    }
     void init() override {
     };
     void update() override {

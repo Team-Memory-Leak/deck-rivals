@@ -3,6 +3,7 @@
 #include "../header/GameObject.hpp"
 #include "../header/Map.hpp"
 #include "../header/ECS/Components.hpp"
+#include "../header/Collision.hpp"
 
 using namespace std;
 
@@ -11,6 +12,8 @@ GameObject* rival;
 Manager mainManager;
 Entity* ourMap;
 Entity* newPlayer;
+
+auto& wall(mainManager.addEntity());
 
 GameEngine2D::GameEngine2D(const string& windowName, int width, int height, Uint64 SDL_Flags) : window(nullptr), renderer(nullptr), background(nullptr), is_running(true), 
     windowTitle(windowName), windowWidth(width), windowHeight(height), SDL_FLAGS(SDL_Flags) {
@@ -47,6 +50,7 @@ bool GameEngine2D::init() {
   ourMap = init_map(this->renderer, mainManager);
   newPlayer = &mainManager.addEntity();
   newPlayer->addComponent<TransformComponent>();
+  newPlayer->addComponent<ColliderComponent>("player");
   newPlayer->addComponent<SpriteComponent>();
   newPlayer->getComponent<SpriteComponent>().addProperty(this->renderer, "assets/characters/FemaleMainCharacter.png");
   newPlayer->addComponent<KeyboardControllerComponent>();
@@ -54,6 +58,12 @@ bool GameEngine2D::init() {
 
   player = new GameObject("assets/characters/MainCharacter.png", this->renderer);
   rival = new GameObject("assets/characters/Rival.png", this->renderer);
+
+  wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
+  wall.addComponent<SpriteComponent>();
+  wall.addComponent<ColliderComponent>();
+  wall.getComponent<ColliderComponent>().tag = "wall";
+  wall.getComponent<SpriteComponent>().addProperty(this->renderer, "assets/characters/MainCharacter.png");
 
   return true;
 };

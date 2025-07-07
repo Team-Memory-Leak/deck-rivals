@@ -5,3 +5,4 @@
 #include "SpriteComponents.hpp"
 #include "MapComponent.hpp"
 #include "KeyboardControllerComponent.hpp"
+#include "ColliderComponent.hpp"
