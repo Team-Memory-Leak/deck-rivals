@@ -80,3 +80,10 @@ std::ostream& operator<<(std::ostream& stream, const Vector2D& vec){
 Vector2D Vector2D::operator*(float scalar){
   return Vector2D(this->x * scalar, this->y * scalar); 
 }
+
+Vector2D& Vector2D::operator*(const int& i){
+   this->x *= i;
+   this->y *= i; 
+   
+   return *this;
+}

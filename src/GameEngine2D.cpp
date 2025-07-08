@@ -81,7 +81,8 @@ void GameEngine2D::update(){
   if(Collision::AABB(newPlayer->getComponent<ColliderComponent>().collider, 
                       wall->getComponent<ColliderComponent>().collider)) {
                         newPlayer->getComponent<TransformComponent>().scale = 1;
-                        std::cout << "Wall Hit" << "\n" ; 
+                        newPlayer->getComponent<TransformComponent>().velocity * -1;
+                        printf("Hi\n");
                       }
 };
 
